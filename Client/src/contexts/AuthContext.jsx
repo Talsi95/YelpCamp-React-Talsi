@@ -8,7 +8,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null); // כאן נאחסן את מזהה המשתמש
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const checkTokenExpiry = () => {
@@ -21,30 +21,25 @@ export const AuthProvider = ({ children }) => {
             const now = Date.now();
 
             if (now >= expiry) {
-                // אם הטוקן כבר פג תוקפו, בצע התנתקות מיידית
                 logout();
             } else {
-                // קבע טיימר לביצוע התנתקות אוטומטית בזמן התפוגה
                 setTimeout(() => {
                     logout();
                 }, expiry - now);
             }
         } catch (err) {
             console.error("Invalid token format", err);
-            // אם יש שגיאה בטוקן, בצע התנתקות מיידית
             logout();
         }
     };
 
     const login = (token) => {
-        // לאחר קבלת טוקן חדש, נשמור אותו ונעדכן את המצב
         localStorage.setItem('token', token);
         const userId = getUserId();
         setUser(userId);
     };
 
     const logout = () => {
-        // מחיקת הטוקן ועדכון המצב
         localStorage.removeItem('token');
         setUser(null);
     };
@@ -65,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     const value = {
         user,
         loading,
-        isLoggedIn: !!user, // בודק האם יש משתמש במצב
+        isLoggedIn: !!user,
         login,
         logout,
     };

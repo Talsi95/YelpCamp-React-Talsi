@@ -80,12 +80,3 @@ export default function Login() {
         </div>
     );
 }
-
-
-// <form onSubmit={handleSubmit}>
-//     <input name="username" value={form.username} onChange={handleChange} placeholder="שם משתמש" />
-//     <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="סיסמה" />
-//     <button>התחבר</button>
-// </form>
-
-

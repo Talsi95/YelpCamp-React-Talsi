@@ -28,7 +28,6 @@ export default function Login() {
         try {
             const res = await axios.post('/api/register', form);
             login(res.data.token);
-            // localStorage.setItem('token', res.data.token);
             toast.success('נרשמת בהצלחה, ברוך הבא!');
             const redirectTo = location.state?.from?.pathname || '/';
             navigate(redirectTo, { replace: true });
@@ -85,10 +84,3 @@ export default function Login() {
         </div>
     );
 }
-
-// <form onSubmit={handleSubmit}>
-//     <input name="username" value={form.username} onChange={handleChange} placeholder="שם משתמש" />
-//     <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="מייל" />
-//     <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="סיסמה" />
-//     <button>הירשם</button>
-// </form>

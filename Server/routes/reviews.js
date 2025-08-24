@@ -4,7 +4,7 @@ const Campground = require('../models/campground');
 const Review = require('../models/review');
 const verifyToken = require('../middleware/auth');
 
-router.post('/api/campgrounds/:id/reviews', verifyToken, async (req, res) => {
+router.post('/campgrounds/:id/reviews', verifyToken, async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     review.author = req.user._id;
@@ -13,10 +13,9 @@ router.post('/api/campgrounds/:id/reviews', verifyToken, async (req, res) => {
     await campground.save();
     await campground.calculateAverageRating();
     res.json(campground);
-    // res.status(201).json(review);
 });
 
-router.delete('/api/campgrounds/:id/reviews/:reviewId', async (req, res) => {
+router.delete('/campgrounds/:id/reviews/:reviewId', async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);

@@ -6,12 +6,22 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000'
+];
 
 app.use(cors({
-    origin: 'http://localhost:5173', // ודא שהפורט הוא הפורט של הלקוח
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
-// app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,14 +34,14 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
 app.use('/api/campgrounds', campgroundRoutes);
-app.use('/', reviewRoutes);
-app.use('/', userRoutes);
+app.use('/api', reviewRoutes);
+app.use('/api', userRoutes);
 
-// app.use(express.static(path.join(__dirname, '../client/src')));
+app.use(express.static(path.join(__dirname, '../Client/dist')));
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/src/index.html'));
-// });
+app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../Client/dist/index.html'));
+});
 
 mongoose.connect('mongodb://yelpcamp-mongo:27017/yelpcamp');
 

@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'imgood';
 
-router.post('/api/register', async (req, res) => {
+router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
         const user = new User({ username, email, password });
@@ -18,7 +18,7 @@ router.post('/api/register', async (req, res) => {
     }
 });
 
-router.post('/api/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -40,7 +40,7 @@ router.post('/api/login', async (req, res) => {
     }
 });
 
-router.post('/api/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     res.json({ message: 'התנתקת בהצלחה' });
 });
 

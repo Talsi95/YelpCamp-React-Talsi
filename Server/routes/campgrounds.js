@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Campground = require('../models/campground');
-// const User = require('../models/user');
-// const catchAsync = require('../utils/catchAsync');
-// const { isLoggedIn, isAdmin, isAuthor, validateCampground } = require('../middleware');
 const { cloudinary } = require('../cloudinary');
 const multer = require('multer')
 const { storage } = require('../cloudinary');
@@ -59,17 +56,14 @@ router.put('/:id', verifyToken, upload.array('images'), async (req, res) => {
             return res.status(404).json({ error: 'Campground not found' });
         }
 
-        // בדיקת הרשאות
         if (campground.author.toString() !== req.user._id) {
             return res.status(403).json({ error: 'אין לך הרשאה לערוך את מקום האירוח הזה' });
         }
 
-        // עדכון שדות בסיסיים
         campground.title = title || campground.title;
         campground.description = description || campground.description;
         campground.price = price || campground.price;
 
-        // עדכון מיקום + geometry
         if (location && location.trim() !== '' && location !== campground.location) {
             console.log(`Updating location from "${campground.location}" to "${location}"`);
 
@@ -88,13 +82,11 @@ router.put('/:id', verifyToken, upload.array('images'), async (req, res) => {
             }
         }
 
-        // הוספת תמונות חדשות
         if (req.files && req.files.length > 0) {
             const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
             campground.images.push(...imgs);
         }
 
-        // מחיקת תמונות שנבחרו למחיקה
         if (deleteImages) {
             const deleteArray = Array.isArray(deleteImages) ? deleteImages : [deleteImages];
             for (let filename of deleteArray) {

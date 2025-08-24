@@ -8,7 +8,6 @@ export default function LogoutButton() {
     const handleLogout = async () => {
         try {
             await axios.post('/api/logout')
-            // await fetch('http://localhost:3000/api/logout', { method: 'POST' });
             localStorage.removeItem('token');
             toast.success('להתראות');
             navigate('/');

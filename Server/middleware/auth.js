@@ -12,12 +12,4 @@ module.exports = async function verifyToken(req, res, next) {
         req.user = { _id: user.id };
         next();
     });
-    // try {
-    //     const decoded = jwt.verify(token, JWT_SECRET);
-    //     req.user = await User.findById(decoded.id).select('-password');
-    //     if (!req.user) return res.status(404).json({ message: 'משתמש לא נמצא' });
-    //     next();
-    // } catch (err) {
-    //     res.status(403).json({ message: 'גישה נדחתה' });
-    // }
 }

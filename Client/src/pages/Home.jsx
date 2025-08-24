@@ -9,7 +9,7 @@ export default function Home({ apiKey }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                axios.get('http://localhost:3000/api/campgrounds')
+                axios.get('/api/campgrounds')
                     .then(res => setCampgrounds(res.data))
                     .catch(err => console.error(err));
             } catch (err) {
@@ -26,17 +26,9 @@ export default function Home({ apiKey }) {
         return <div>טוען נתונים...</div>;
     }
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:3000/api/campgrounds')
-    //         .then(res => setCampgrounds(res.data))
-    //         .catch(err => console.error(err));
-    // }, []);
-
     return (
         <div>
-            {/* <Link to="/campgrounds/new" className="btn btn-success">הוסף מקום</Link> */}
             <CampgroundList campgrounds={campgrounds} apiKey={apiKey} />
-            {/* <Route path="/campgrounds/:id" element={<ShowCampground apiKey={apiKey} />} /> */}
         </div>
     );
 }

@@ -29,18 +29,6 @@ export default function ShowCampground({ apiKey }) {
         fetchCampground();
     }, [id]);
 
-    // const isOwner = useMemo(() => {
-    //     if (!isLoggedIn || !campground?.author?._id) return false;
-    //     const currentUserId = typeof user === 'string' ? user : (user?.id || user?._id);
-    //     return currentUserId === campground.author._id;
-    // }, [isLoggedIn, user, campground]);
-
-    // const avg = useMemo(() => {
-    //     const v = Number(campground?.averageRating);
-    //     return Number.isFinite(v) ? v.toFixed(1) : '—';
-    // }, [campground]);
-
-
     if (!campground) return <div>טוען...</div>;
 
     const handleDelete = async () => {

@@ -19,18 +19,3 @@ export default function PrivateRoute({ children }) {
 
     return children;
 }
-
-
-
-
-// import { Navigate } from 'react-router-dom';
-// import { isLoggedIn } from '../utils/auth';
-// import { toast } from 'react-toastify';
-
-// export default function PrivateRoute({ children }) {
-//     if (!isLoggedIn()) {
-//         toast.info('התחבר כדי להוסיף מקום');
-//         return <Navigate to="/login" />;
-//     }
-//     return children;
-// }
